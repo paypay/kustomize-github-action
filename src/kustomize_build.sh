@@ -55,7 +55,10 @@ ${build_output}
         echo "build: info: commenting on the pull request"
         echo "${build_payload}" | curl -s -S -H "Authorization: token ${GITHUB_ACCESS_TOKEN}" --header "Content-Type: application/json" --data @- "${build_comment_url}" > /dev/null
     fi
-
-    echo "kustomize_build_output=${build_output}" >> $GITHUB_OUTPUT
+    
+    echo "kustomize_build<<EOF" >> $GITHUB_OUTPUT
+    echo "${build_output}" >> $GITHUB_OUTPUT
+    echo "EOF" >> $GITHUB_OUTPUT
+    
     exit ${build_exit_code}
 }
